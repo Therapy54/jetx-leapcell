@@ -80,7 +80,7 @@ app.get("/jetX-launch/launch", async(req, res)=> {
      * /jetX-launch/launch?case="botToLaunch" (jetXTestCase || jetXStarter || jetXMain);
      * e.g (/jetX-launch/launch?case="jetXTestCase")
     **/
-    let launchCase = await JSON.parse(req.query.case);
+    let launchCase = (req.query.case) && await(JSON.parse(req.query.case));
     console.log("==>> Request query to launch jetx-bot instance: ", launchCase);
 
     let {context, page} = await createContextPage(); //launches playwright context and page
@@ -88,6 +88,7 @@ app.get("/jetX-launch/launch", async(req, res)=> {
 
     try {
         if (launchCase) {
+
             if (launchCase === "jetXTestCase") {
                 await jetXTestCase(context, page);
                 await console.log(`Hello, playwright has launched: ${launchCase}!`);
