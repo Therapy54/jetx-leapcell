@@ -51,6 +51,8 @@ let jetXTestCase = async(context, page)=> {
 
     //on jexcrash page, #page is in iframes
     await page.waitForTimeout(15000);
+    let jetx_url = page.url();
+    console.log(jetx_url);
     await page.waitForSelector("div.iframe-block");
     let iframe1 = await page.frameLocator("iframe[title='JetX']"); //first frame laoded and located
     let iframe2 = await iframe1.frameLocator("#game-frame"); //second frame loaded and located
