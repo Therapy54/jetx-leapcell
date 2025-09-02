@@ -49,7 +49,7 @@ let createContextPage = async()=> {
         //on server environment, create browser context without persistence
         context = await chromium.launch(
             {
-                headless: false,
+                headless: true,
                 args: (process.env.local_env_id)?
                     [] : [
                         "--no-sandbox",
