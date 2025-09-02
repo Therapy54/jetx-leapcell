@@ -51,10 +51,13 @@ let createContextPage = async()=> {
             {
                 headless: true,
                 args: (process.env.local_env_id)?
-                    [] : [
-                        "--no-sandbox",
-                        "--disable-setuid-sandbox",
-                        "--single-process"
+                    [] :
+                    [
+                        '--no-sandbox',
+                        '--disable-setuid-sandbox',
+                        '--single-process',
+                        '--disable-web-security',
+                        '--user-data-dir=/tmp/playwright-user-data' // Use a temporary directory
                     ],
                 viewport: {width:1024, height:768}
             }
