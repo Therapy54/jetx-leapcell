@@ -34,7 +34,7 @@ let createContextPage = async()=> {
     **/
 
     let context = undefined;
-    if (process.env.local_env_id) {
+    if (!process.env.local_env_id) {
         //on my local machine, create browser context with persistence
         context = await chromium.launchPersistentContext(
             betpawaAuthPath,
@@ -49,7 +49,7 @@ let createContextPage = async()=> {
         //on server environment, create browser context without persistence
         context = await chromium.launch(
             {
-                headless: true,
+                headless: false,
                 args: (process.env.local_env_id)?
                     [] : [
                         "--no-sandbox",
