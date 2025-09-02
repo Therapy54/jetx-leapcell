@@ -87,27 +87,35 @@ app.get("/jetX-launch/launch", async(req, res)=> {
 
 
     try {
-        if (launchCase === "jetXTestCase") {
-            await jetXTestCase(context, page);
-            await console.log(`Hello, playwright has launched: ${launchCase}!`);
-        }
-        else if ((launchCase ==="jetXStarter")) {
-            await jetXStarter(context, page);
-            await console.log(`Hello, playwright has launched: ${launchCase}!`);
-        }
-        else if (launchCase === "jetXMain") {
-            await jetXMain(context, page);
-            await console.log(`Hello, playwright has launched: ${launchCase}!`);
+        if (launchCase) {
+            if (launchCase === "jetXTestCase") {
+                await jetXTestCase(context, page);
+                await console.log(`Hello, playwright has launched: ${launchCase}!`);
+            }
+            else if ((launchCase ==="jetXStarter")) {
+                await jetXStarter(context, page);
+                await console.log(`Hello, playwright has launched: ${launchCase}!`);
+            }
+            else if (launchCase === "jetXMain") {
+                await jetXMain(context, page);
+                await console.log(`Hello, playwright has launched: ${launchCase}!`);
+            }
+            else {
+                await console.log("no match for jetX launch query, case!!");
+                throw await new Error("no match for jetX launch query!");
+            }
         }
         else {
-            await console.log("no match for jetX launch query, case!!");
-            throw await new Error("no match for jetX launch query!");
+            throw await new Error("invalid request query for jetX-bot");
         }
         await res.send("Hello, i'm playwright jetX-bot!");
     }
     catch(error) {
         await eventEmitter.emit("error", error);
-        if (context) {await context.close()}
+        if (context) {
+            await console.log("closing browser context!");
+            await context.close()
+        }
     }
 });
 
