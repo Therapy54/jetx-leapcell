@@ -114,8 +114,8 @@ app.get("/jetX-launch/launch", async(req, res)=> {
     catch(error) {
         await eventEmitter.emit("error", error);
         if (context) {
-            await console.log("closing browser context!");
-            await context.close()
+            await context.close();
+            await console.log("browser context closed successfully!");
         }
     }
 });
